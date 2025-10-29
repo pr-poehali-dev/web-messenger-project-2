@@ -40,30 +40,30 @@ export default function MainMessenger({ user, onLogout }: MainMessengerProps) {
   const showChat = !isMobile || (isMobile && selectedChat);
 
   return (
-    <div className="h-screen flex flex-col bg-gray-50">
+    <div className="h-screen flex flex-col bg-background">
       <div className="flex flex-1 overflow-hidden">
         {showSidebar && (
-          <div className="w-full md:w-80 bg-white border-r border-gray-200 flex flex-col">
-            <div className="bg-blue-500 text-white p-4">
+          <div className="w-full md:w-80 bg-card border-r border-border flex flex-col">
+            <div className="bg-primary text-primary-foreground p-4">
               <div className="flex items-center justify-between mb-4">
                 <h1 className="text-xl font-semibold">Мессенджер</h1>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={onLogout}
-                  className="text-white hover:bg-blue-600"
+                  className="text-primary-foreground hover:bg-primary/90"
                 >
                   <Icon name="LogOut" size={20} />
                 </Button>
               </div>
 
-              <div className="flex gap-1 bg-blue-600 rounded-lg p-1">
+              <div className="flex gap-1 bg-background/10 rounded-xl p-1">
                 <button
                   onClick={() => setActiveTab('chats')}
-                  className={`flex-1 py-2 px-4 rounded-md transition-colors ${
+                  className={`flex-1 py-2.5 px-4 rounded-lg transition-all font-medium ${
                     activeTab === 'chats'
-                      ? 'bg-white text-blue-500'
-                      : 'text-white hover:bg-blue-500'
+                      ? 'bg-background text-primary shadow-sm'
+                      : 'text-primary-foreground/80 hover:bg-background/5'
                   }`}
                 >
                   <Icon name="MessageSquare" size={18} className="inline mr-2" />
@@ -71,10 +71,10 @@ export default function MainMessenger({ user, onLogout }: MainMessengerProps) {
                 </button>
                 <button
                   onClick={() => setActiveTab('contacts')}
-                  className={`flex-1 py-2 px-4 rounded-md transition-colors ${
+                  className={`flex-1 py-2.5 px-4 rounded-lg transition-all font-medium ${
                     activeTab === 'contacts'
-                      ? 'bg-white text-blue-500'
-                      : 'text-white hover:bg-blue-500'
+                      ? 'bg-background text-primary shadow-sm'
+                      : 'text-primary-foreground/80 hover:bg-background/5'
                   }`}
                 >
                   <Icon name="Users" size={18} className="inline mr-2" />
@@ -82,10 +82,10 @@ export default function MainMessenger({ user, onLogout }: MainMessengerProps) {
                 </button>
                 <button
                   onClick={() => setActiveTab('settings')}
-                  className={`flex-1 py-2 px-4 rounded-md transition-colors ${
+                  className={`flex-1 py-2.5 px-4 rounded-lg transition-all font-medium ${
                     activeTab === 'settings'
-                      ? 'bg-white text-blue-500'
-                      : 'text-white hover:bg-blue-500'
+                      ? 'bg-background text-primary shadow-sm'
+                      : 'text-primary-foreground/80 hover:bg-background/5'
                   }`}
                 >
                   <Icon name="Settings" size={18} className="inline mr-2" />
@@ -133,7 +133,7 @@ export default function MainMessenger({ user, onLogout }: MainMessengerProps) {
                 onBack={() => setSelectedChat(null)}
               />
             ) : (
-              <div className="flex-1 flex items-center justify-center text-gray-400">
+              <div className="flex-1 flex items-center justify-center text-muted-foreground">
                 <div className="text-center">
                   <Icon name="MessageCircle" size={64} className="mx-auto mb-4 opacity-50" />
                   <p className="text-lg">Выберите чат для начала общения</p>

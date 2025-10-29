@@ -48,24 +48,24 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100">
-      <Card className="w-full max-w-md p-8 shadow-xl">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/5 via-accent/30 to-primary/10">
+      <Card className="w-full max-w-md p-8 shadow-2xl border-0 bg-card/95 backdrop-blur">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-500 rounded-full mb-4">
-            <Icon name="MessageCircle" size={32} className="text-white" />
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary to-primary/80 rounded-2xl mb-4 shadow-lg">
+            <Icon name="MessageCircle" size={36} className="text-primary-foreground" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900">Мессенджер</h1>
-          <p className="text-gray-500 mt-2">Войдите в свой аккаунт</p>
+          <h1 className="text-3xl font-bold text-foreground">Мессенджер</h1>
+          <p className="text-muted-foreground mt-2">Войдите в свой аккаунт</p>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-4">
+        <form onSubmit={handleLogin} className="space-y-5">
           <div>
             <Input
               type="text"
               placeholder="Логин"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full"
+              className="w-full h-12 rounded-xl border-border focus:border-primary focus:ring-primary"
               disabled={loading}
             />
           </div>
@@ -76,20 +76,20 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
               placeholder="Пароль"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full"
+              className="w-full h-12 rounded-xl border-border focus:border-primary focus:ring-primary"
               disabled={loading}
             />
           </div>
 
           {error && (
-            <div className="text-red-500 text-sm text-center bg-red-50 p-3 rounded">
+            <div className="text-destructive text-sm text-center bg-destructive/10 p-3 rounded-xl">
               {error}
             </div>
           )}
 
           <Button 
             type="submit" 
-            className="w-full bg-blue-500 hover:bg-blue-600"
+            className="w-full h-12 bg-primary hover:bg-primary/90 rounded-xl font-semibold text-base shadow-lg hover:shadow-xl transition-all"
             disabled={loading || !username || !password}
           >
             {loading ? 'Вход...' : 'Войти'}

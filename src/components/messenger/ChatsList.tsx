@@ -61,7 +61,7 @@ export default function ChatsList({ user, onSelectChat, selectedChatId }: ChatsL
 
   if (loading) {
     return (
-      <div className="p-4 text-center text-gray-500">
+      <div className="p-4 text-center text-muted-foreground">
         Загрузка чатов...
       </div>
     );
@@ -69,40 +69,40 @@ export default function ChatsList({ user, onSelectChat, selectedChatId }: ChatsL
 
   if (chats.length === 0) {
     return (
-      <div className="p-4 text-center text-gray-500">
+      <div className="p-4 text-center text-muted-foreground">
         <p>Нет активных чатов</p>
-        <p className="text-sm mt-2">Добавьте контакт, чтобы начать общение</p>
+        <p className="text-sm mt-2">Найдите пользователя, чтобы начать общение</p>
       </div>
     );
   }
 
   return (
-    <div className="divide-y divide-gray-100">
+    <div className="divide-y divide-border">
       {chats.map((chat) => (
         <div
           key={chat.chat_id}
           onClick={() => onSelectChat(chat)}
-          className={`p-4 cursor-pointer hover:bg-gray-50 transition-colors ${
-            selectedChatId === chat.chat_id ? 'bg-blue-50' : ''
+          className={`p-4 cursor-pointer hover:bg-accent/50 transition-colors ${
+            selectedChatId === chat.chat_id ? 'bg-accent' : ''
           }`}
         >
           <div className="flex items-center gap-3">
             <Avatar className="w-12 h-12">
-              <AvatarFallback className="bg-blue-500 text-white">
+              <AvatarFallback className="bg-primary text-primary-foreground">
                 {chat.display_name[0]?.toUpperCase() || 'U'}
               </AvatarFallback>
             </Avatar>
 
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between mb-1">
-                <h3 className="font-semibold text-gray-900 truncate">
+                <h3 className="font-semibold text-foreground truncate">
                   {chat.display_name}
                 </h3>
-                <span className="text-xs text-gray-500">
+                <span className="text-xs text-muted-foreground">
                   {formatTime(chat.last_message_time)}
                 </span>
               </div>
-              <p className="text-sm text-gray-500 truncate">
+              <p className="text-sm text-muted-foreground truncate">
                 {chat.last_message || 'Начните беседу'}
               </p>
             </div>
