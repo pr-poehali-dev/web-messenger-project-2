@@ -52,16 +52,29 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 password = body_data.get('password')
                 password_hash = hash_password(password)
                 
+                print(f'Login attempt: username={username}, hash={password_hash}')
+                
                 cur.execute('''
                     SELECT id, username, display_name, first_name, last_name, 
-                           avatar_url, is_admin, is_verified, is_friend_of_admin
+                           avatar_url, is_admin, is_verified, is_friend_of_admin, password_hash
                     FROM users 
-                    WHERE username = %s AND password_hash = %s
-                ''', (username, password_hash))
+                    WHERE username = %s
+                ''', (username,))
                 
                 user = cur.fetchone()
                 
                 if user:
+                    db_hash = user[9]
+                    print(f'Found user, DB hash={db_hash}, Calculated hash={password_hash}, Match={db_hash == password_hash}')
+                    
+                    if db_hash != password_hash:
+                        return {
+                            'statusCode': 401,
+                            'headers': headers,
+                            'body': json.dumps({'success': False, 'error': 'Неверный логин или пароль'}),
+                            'isBase64Encoded': False
+                        }
+                    
                     cur.execute('''
                         UPDATE users SET last_seen = CURRENT_TIMESTAMP 
                         WHERE id = %s
@@ -88,6 +101,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                         'isBase64Encoded': False
                     }
                 else:
+                    print(f'User not found: username={username}')
                     return {
                         'statusCode': 401,
                         'headers': headers,
